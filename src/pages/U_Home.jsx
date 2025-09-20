@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // import React, { useEffect, useState } from "react";
 
 // function U_Home() {
@@ -56,7 +55,6 @@
 // }
 
 // export default U_Home;
-=======
 import React, { useState, useEffect } from 'react';
 import { hmpiData, searchCities, getCityByName, getHmpiLevel, getHmpiColor } from '../data/hmpiData';
 
@@ -481,4 +479,3 @@ function U_Home() {
 }
 
 export default U_Home;
->>>>>>> b1be11e805a9b8fe5baa44f5c2388c1e2df5016e
