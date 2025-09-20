@@ -14,12 +14,12 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/user" element={<U_Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/userDashboard" element={<UserDashboard />} />
-  <Route path="/researcherDashboard" element={<ResearcherDashboard />} />
-
+        <Route path="/researcherDashboard" element={<ResearcherDashboard />} />
       </Routes>
     </div>
   );
