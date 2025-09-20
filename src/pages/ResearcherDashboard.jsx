@@ -1,4 +1,12 @@
+import React, { useState } from "react";
+import Navbar from "../components/Navbar.jsx";
+import Papa from "papaparse";
+
+export default function ResearcherDashboard() {
+  const [researchData, setResearchData] = useState([]);
+
   // Handle CSV upload
+  const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
