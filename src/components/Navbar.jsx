@@ -13,7 +13,7 @@ function Navbar() {
                 <img src="/logo.jpeg" alt="Logo" className="h-8 w-8 rounded-full" />
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                ToxiTrace 
+                ToxiTrace
               </span>
             </div>
           </div>
@@ -44,12 +44,18 @@ function Navbar() {
 
           {/* Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <button className="px-4 py-2 text-sm font-medium border border-blue-400 text-blue-400 rounded-md hover:bg-blue-400 hover:text-white transition-all duration-200 hover:shadow-lg hover:shadow-blue-400/20">
+            <NavLink
+              to="/login"
+              className="px-4 py-2 text-sm font-medium border border-blue-400 text-blue-400 rounded-md hover:bg-blue-400 hover:text-white transition-all duration-200 hover:shadow-lg hover:shadow-blue-400/20"
+            >
               Login
-            </button>
-            <button className="px-4 py-2 text-sm font-medium bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-md hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-200">
+            </NavLink>
+            <NavLink
+              to="/register"
+              className="px-4 py-2 text-sm font-medium bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-md hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-200"
+            >
               Register
-            </button>
+            </NavLink>
           </div>
 
           {/* Mobile menu button */}
@@ -96,12 +102,18 @@ function Navbar() {
             );
           })}
           <div className="pt-4 pb-3 border-t border-gray-700 space-y-3">
-            <button className="block w-full text-left px-3 py-2 rounded-md text-base font-medium border border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-200">
+            <NavLink
+              to="/login"
+              className="block w-full text-left px-3 py-2 rounded-md text-base font-medium border border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white transition-all duration-200"
+            >
               Login
-            </button>
-            <button className="block w-full text-left px-3 py-2 rounded-md text-base font-medium bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:shadow-blue-500/30 transition-all duration-200">
+            </NavLink>
+            <NavLink
+              to="/register"
+              className="block w-full text-left px-3 py-2 rounded-md text-base font-medium bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:shadow-blue-500/30 transition-all duration-200"
+            >
               Register
-            </button>
+            </NavLink>
           </div>
         </div>
       </div>
@@ -110,3 +122,5 @@ function Navbar() {
 }
 
 export default Navbar;
+
+
