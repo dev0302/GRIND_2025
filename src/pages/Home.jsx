@@ -2,7 +2,7 @@ import React from 'react'
 
 function Home() {
   return (
-    <div className='w-full min-h-screen pt-16'>
+    <div className='w-full min-h-screen'>
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 min-h-screen flex items-center">
         <div className="absolute inset-0 bg-black/20"></div>
