@@ -57,9 +57,9 @@ function Home() {
                 </button>
                 <button 
                   onClick={handleResearcherClick}
-                  className="px-8 py-4 border-2 border-blue-400 text-blue-400 font-semibold rounded-lg hover:bg-blue-400 hover:text-white transition-all duration-300"
+                  className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:shadow-xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:-translate-y-1"
                 >
-                  Researcher
+                  Get Started as Researcher
                 </button>
               </div>
             </div>
@@ -82,6 +82,12 @@ function Home() {
                   <div className="bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-lg p-4 mt-6">
                     <p className="text-sm text-gray-300">
                       Upload CSV data • Generate heat maps • Export detailed reports
+                    </p>
+                  </div>
+                  
+                  <div className="mt-6 p-4 bg-gradient-to-r from-slate-800/50 to-blue-900/50 rounded-lg border border-blue-700/30">
+                    <p className="text-xs text-gray-400 italic leading-relaxed">
+                      "Our vision is not just about research. It is about empowering India with data, shaping future technologies, and ensuring that safe, clean water becomes a guaranteed right, not a luxury. This is more than a platform—it is the beginning of a movement, where research meets innovation, and innovation meets impact."
                     </p>
                   </div>
                 </div>

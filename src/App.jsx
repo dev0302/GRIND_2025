@@ -11,6 +11,7 @@ import FileUpload from "./pages/FileUpload"; // File Upload Page
 import PreviousFiles from "./pages/PreviousFiles"; // Previous Files Page
 import ResearcherReport from "./pages/ResearcherReport"; // Researcher Report
 import HeatMap from "./pages/HeatMap"; // HMPI Heat Map
+import OurVision from "./pages/OurVision"; // Our Vision Page
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/previousFiles" element={<PreviousFiles />} />
         <Route path="/researcherReport" element={<ResearcherReport />} />
         <Route path="/heatmap" element={<HeatMap />} />
+        <Route path="/our-vision" element={<OurVision />} />
       </Routes>
     </div>
   );

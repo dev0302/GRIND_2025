@@ -27,7 +27,7 @@ export const hmpiData = {
   "Delhi": {
     city: "Delhi",
     state: "Delhi",
-    district: "New Delhi",
+    district: "Paschim Vihar",
     hmpi: 6.8,
     level: "High",
     status: "Critical",
