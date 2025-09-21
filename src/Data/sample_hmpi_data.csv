@@ -1,0 +1,6 @@
+SampleID,LabCode,LabName,AccreditationID,CollectorName,DateOfCollection,TimeOfCollection,Depth,SourceType,LocationName,Latitude,Longitude,Photo,pH,EC,TDS,Temperature,Turbidity,Pb,As,Cd,Cr,Ni,Hg,Cu,Zn,Fe,Mn
+S001,NABL-123,EnviroLab Pvt Ltd,NABL-001,Dr. Ramesh Kumar,2024-01-15,10:30,30,Borewell,Paschim Vihar,28.6139,77.2090,img001.jpg,7.4,750,480,28,3,0.12,0.05,0.003,0.15,0.06,0.001,0.08,0.18,0.8,0.15
+S002,NABL-123,EnviroLab Pvt Ltd,NABL-001,Dr. Ramesh Kumar,2024-04-20,11:00,30,Borewell,Paschim Vihar,28.6139,77.2090,img002.jpg,7.3,780,490,29,3.2,0.08,0.03,0.002,0.12,0.04,0.0008,0.06,0.15,0.6,0.12
+S003,NABL-123,EnviroLab Pvt Ltd,NABL-001,Dr. Ramesh Kumar,2024-07-15,09:45,30,Borewell,Paschim Vihar,28.6139,77.2090,img003.jpg,7.2,800,500,30,3.5,0.05,0.02,0.0015,0.08,0.03,0.0006,0.04,0.12,0.45,0.1
+S004,NABL-123,EnviroLab Pvt Ltd,NABL-001,Dr. Ramesh Kumar,2024-10-10,10:15,30,Borewell,Paschim Vihar,28.6139,77.2090,img004.jpg,7.1,820,510,31,3.8,0.03,0.015,0.001,0.06,0.02,0.0004,0.03,0.1,0.35,0.08
+S005,NABL-123,EnviroLab Pvt Ltd,NABL-001,Dr. Ramesh Kumar,2025-01-20,10:30,30,Borewell,Paschim Vihar,28.6139,77.2090,img005.jpg,7.0,850,520,32,4.0,0.02,0.01,0.0008,0.04,0.015,0.0003,0.025,0.08,0.25,0.06

@@ -20,7 +20,7 @@ export default function UserDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-gray-900 text-white pt-16">
       <Navbar />
       <div className="max-w-3xl mx-auto p-6">
         <h1 className="text-3xl font-bold mb-6 text-teal-400">

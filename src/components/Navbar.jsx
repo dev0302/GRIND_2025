@@ -21,8 +21,8 @@ function Navbar() {
           {/* Navigation Links - Desktop */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
-              {["/", "/about", "/details", "/reports"].map((path, idx) => {
-                const names = ["Home", "About", "Details", "Reports"];
+              {["/", "/about", "/heatmap", "/reports"].map((path, idx) => {
+                const names = ["Home", "About", "HMPI Heat Map", "Reports"];
                 return (
                   <NavLink
                     key={idx}
@@ -83,8 +83,8 @@ function Navbar() {
       {/* Mobile menu (hidden by default) */}
       <div className="md:hidden hidden">
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-[#1E293B]">
-          {["/", "/about", "/details", "/reports"].map((path, idx) => {
-            const names = ["Home", "About", "Details", "Reports"];
+          {["/", "/about", "/heatmap", "/reports"].map((path, idx) => {
+            const names = ["Home", "About", "HMPI Heat Map", "Reports"];
             return (
               <NavLink
                 key={idx}

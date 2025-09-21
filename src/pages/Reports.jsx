@@ -31,7 +31,7 @@ export default function Report() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-800 text-white">
+    <div className="min-h-screen bg-gray-800 text-white pt-16">
       <Navbar />
       <div className="max-w-3xl mx-auto p-6">
         <h1 className="text-3xl font-bold mb-6 text-teal-400">Submit a Water Report</h1>
