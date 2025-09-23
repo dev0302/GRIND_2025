@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { validateResearcherLogin, validateGeneralLogin } from "../data/sampleUsers";
+import { validateResearcherLogin, validateGeneralLogin } from "../data/sampleUsers.js";
 
 export default function Login() {
   const navigate = useNavigate();
