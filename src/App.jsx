@@ -5,7 +5,7 @@ import U_Home from "./pages/U_Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Reports from "./pages/Reports";
-import UserDashboard from "./pages/Userdashboard";
+import UserDashboard from "./pages/UserDashboard";
 import ResearcherDashboard from "./pages/ResearcherDashboard"; // Researcher Dashboard
 import FileUpload from "./pages/FileUpload"; // File Upload Page
 import PreviousFiles from "./pages/PreviousFiles"; // Previous Files Page
