@@ -214,13 +214,13 @@ export const generatePDFReport = async (researchData, fileName, userData) => {
 
   let qualityCategory = 'Safe';
   let qualityColor = [34, 197, 94]; // Green
-  if (finalHMPI > 75) {
+  if (finalHMPI >= 150) {
     qualityCategory = 'Critical';
     qualityColor = [239, 68, 68]; // Red
-  } else if (finalHMPI > 50) {
+  } else if (finalHMPI >= 100) {
     qualityCategory = 'Polluted';
     qualityColor = [249, 115, 22]; // Orange
-  } else if (finalHMPI > 25) {
+  } else if (finalHMPI >= 50) {
     qualityCategory = 'Moderate';
     qualityColor = [245, 158, 11]; // Yellow
   }
@@ -364,9 +364,9 @@ const calculateSampleHMPI = (sample) => {
 
 // Helper function to get quality category
 const getQualityCategory = (hmpi) => {
-  if (hmpi < 25) return 'Safe';
-  if (hmpi < 50) return 'Moderate';
-  if (hmpi < 75) return 'Polluted';
+  if (hmpi < 50) return 'Safe';
+  if (hmpi < 100) return 'Moderate';
+  if (hmpi < 150) return 'Polluted';
   return 'Critical';
 };
 

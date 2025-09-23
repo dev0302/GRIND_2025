@@ -157,7 +157,7 @@ export const calculateHMPI = (sampleData) => {
     totalWeight += unitWeight;
   });
   
-  const hmpi = totalWeight / totalWeightedSubIndex ? totalWeightedSubIndex / totalWeight : 0;
+  const hmpi = totalWeight > 0 ? (totalWeightedSubIndex / totalWeight) : 0;
   
   return {
     hmpi: Math.round(hmpi * 100) / 100,
@@ -169,10 +169,12 @@ export const calculateHMPI = (sampleData) => {
 
 // Determine water quality category based on HMPI
 export const getWaterQualityCategory = (hmpi) => {
-  if (hmpi < 25) return { category: 'Low', status: 'Safe', color: 'green' };
-  if (hmpi < 50) return { category: 'Medium', status: 'Moderate', color: 'yellow' };
-  if (hmpi < 75) return { category: 'High', status: 'Polluted', color: 'orange' };
-  return { category: 'Very High', status: 'Critical', color: 'red' };
+  // HMPI thresholding commonly used in Indian studies
+  // < 50: Safe, 50-100: Moderate, 100-150: Polluted, >150: Critical
+  if (hmpi < 50) return { category: 'Safe', status: 'Safe', color: 'green' };
+  if (hmpi < 100) return { category: 'Moderate', status: 'Moderate', color: 'yellow' };
+  if (hmpi < 150) return { category: 'Polluted', status: 'Polluted', color: 'orange' };
+  return { category: 'Critical', status: 'Critical', color: 'red' };
 };
 
 // Get recommendations based on HMPI and metal concentrations

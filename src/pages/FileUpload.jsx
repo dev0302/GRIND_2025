@@ -8,6 +8,8 @@ export default function FileUpload() {
   const [researchData, setResearchData] = useState([]);
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isFileUploaded, setIsFileUploaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [stepIndex, setStepIndex] = useState(0);
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -58,7 +60,7 @@ export default function FileUpload() {
         console.log("Processed Data:", parsedData);
         setResearchData([...parsedData, ...researchData]);
         setIsFileUploaded(true);
-        alert("CSV uploaded successfully! Click 'Generate Report' to proceed.");
+        // alert("CSV uploaded successfully! Click 'Generate Report' to proceed.");
       },
       error: function (err) {
         console.error("CSV Parse Error:", err);
@@ -95,10 +97,26 @@ export default function FileUpload() {
       return;
     }
 
-    localStorage.setItem("researchData", JSON.stringify(researchData));
-    localStorage.setItem("uploadedFileName", uploadedFile?.name || "research_data.csv");
-    
-    navigate("/researcherReport");
+    // Start staged loader (3 steps)
+    setIsLoading(true);
+    setStepIndex(0);
+
+    setTimeout(() => {
+      setStepIndex(1);
+      setTimeout(() => {
+        setStepIndex(2);
+        setTimeout(() => {
+          // Persist data
+          localStorage.setItem("researchData", JSON.stringify(researchData));
+          localStorage.setItem("uploadedFileName", uploadedFile?.name || "research_data.csv");
+
+          // Scroll to top and navigate
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          navigate("/researcherReport");
+          setIsLoading(false);
+        }, 900);
+      }, 900);
+    }, 900);
   };
 
   const handleBackToDashboard = () => {
@@ -295,6 +313,27 @@ export default function FileUpload() {
           )}
         </div>
       </div>
+
+      {/* Staged Loader Overlay during report generation */}
+      {isLoading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+          <div className="bg-gray-800 border border-gray-700 rounded-2xl p-8 w-full max-w-md text-center shadow-2xl">
+            <div className="mx-auto w-14 h-14 border-4 border-indigo-400 border-t-transparent rounded-full animate-spin mb-6"></div>
+            <div className="space-y-2">
+              {stepIndex === 0 && (
+                <p className="text-white text-lg font-semibold">Uploading and parsing CSV...</p>
+              )}
+              {stepIndex === 1 && (
+                <p className="text-white text-lg font-semibold">Fetching Previous Data...</p>
+              )}
+              {stepIndex === 2 && (
+                <p className="text-white text-lg font-semibold">Preparing your report...</p>
+              )}
+              <p className="text-gray-300 text-sm">Please wait</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

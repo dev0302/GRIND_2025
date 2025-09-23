@@ -11,42 +11,60 @@ export default function Login() {
   const [accreditationId, setAccreditationId] = useState("");
   const [loginMethod, setLoginMethod] = useState("id");
   const [isLoading, setIsLoading] = useState(false);
+  const [stepIndex, setStepIndex] = useState(0); // 0,1,2 for staged loader
+  const [loadingOrg, setLoadingOrg] = useState(""); // NABL/CPCB/SPCB based on ID
 
   const handleLogin = (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate loading for better UX
-    setTimeout(() => {
-      let validationResult;
+    // Validate immediately
+    let validationResult;
+    if (loginMethod === "id" || loginMethod === "certificate") {
+      validationResult = validateResearcherLogin(email, accreditationId, loginMethod);
+    } else {
+      validationResult = validateGeneralLogin(email, password);
+    }
 
-      // Check if it's a researcher login
-      if (loginMethod === "id" || loginMethod === "certificate") {
-        validationResult = validateResearcherLogin(email, accreditationId, loginMethod);
-      } else {
-        // General user login
-        validationResult = validateGeneralLogin(email, password);
-      }
-
-      if (!validationResult.success) {
-        alert(validationResult.message);
-        setIsLoading(false);
+    if (!validationResult.success) {
+      alert(validationResult.message);
+      setIsLoading(false);
       return;
     }
 
-      // Store user data in localStorage
-      const user = validationResult.user;
-      localStorage.setItem("user", JSON.stringify(user));
-    localStorage.setItem("isLoggedIn", true);
-    localStorage.setItem("role", user.role);
+    // Determine organisation label for staged message (NABL/CPCB/SPCB)
+    const upperId = (accreditationId || "").toUpperCase();
+    let org = "accreditation";
+    if (upperId.startsWith("NABL")) org = "NABL";
+    else if (upperId.startsWith("CPCB")) org = "CPCB";
+    else if (upperId.startsWith("SPCB")) org = "SPCB";
+    setLoadingOrg(org);
 
-      // Navigate based on role
-    if (user.role === "researcher") {
-        navigate("/researcherDashboard");
-    } else {
-        navigate("/userDashboard");
-    }
-    }, 1000);
+    // Stage messages: 0->1->2 then navigate
+    setStepIndex(0);
+    setTimeout(() => {
+      setStepIndex(1);
+      setTimeout(() => {
+        setStepIndex(2);
+        setTimeout(() => {
+          // Store user and navigate
+          const user = validationResult.user;
+          localStorage.setItem("user", JSON.stringify(user));
+          localStorage.setItem("isLoggedIn", true);
+          localStorage.setItem("role", user.role);
+
+          // Scroll to top before navigation
+          window.scrollTo({ top: 0, behavior: "smooth" });
+
+          if (user.role === "researcher") {
+            navigate("/researcherDashboard");
+          } else {
+            navigate("/userDashboard");
+          }
+          setIsLoading(false);
+        }, 900);
+      }, 900);
+    }, 900);
   };
 
   return (
@@ -228,6 +246,29 @@ export default function Login() {
           </div>
         </div>
       </div>
+
+      {/* Staged Loader Overlay */}
+      {isLoading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70">
+          <div className="bg-gray-800 border border-gray-700 rounded-2xl p-8 w-full max-w-md text-center shadow-2xl">
+            <div className="mx-auto w-14 h-14 border-4 border-blue-400 border-t-transparent rounded-full animate-spin mb-6"></div>
+            <div className="space-y-2">
+              {stepIndex === 0 && (
+                <p className="text-white text-lg font-semibold">Fetching data...</p>
+              )}
+              {stepIndex === 1 && (
+                <p className="text-white text-lg font-semibold">
+                  Verifying {loadingOrg || 'accreditation'} ID...
+                </p>
+              )}
+              {stepIndex === 2 && (
+                <p className="text-white text-lg font-semibold">Logging you in...</p>
+              )}
+              <p className="text-gray-300 text-sm">Please wait</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

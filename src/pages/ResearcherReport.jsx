@@ -308,7 +308,7 @@ export default function ResearcherReport() {
             <div className="bg-gradient-to-r from-orange-900 to-red-800 p-6 rounded-xl">
               <h3 className="text-lg font-semibold text-orange-200 mb-2">Critical Samples</h3>
               <p className="text-3xl font-bold text-white">
-                {processedSamples.filter(s => (s.hmpiResult?.hmpi || 0) > 75).length}
+                {processedSamples.filter(s => s.quality?.category === 'Critical').length}
               </p>
             </div>
           </div>
@@ -405,27 +405,27 @@ export default function ResearcherReport() {
                     <h3 className="text-lg font-semibold text-cyan-400 mb-3">Quality Distribution</h3>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-gray-300">Safe (HMPI &lt; 25):</span>
+                        <span className="text-gray-300">Safe (HMPI &lt; 50):</span>
                         <span className="text-green-400 font-semibold">
-                          {processedSamples.filter(s => (s.hmpiResult?.hmpi || 0) < 25).length}
+                          {processedSamples.filter(s => (s.hmpiResult?.hmpi || 0) < 50).length}
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-300">Moderate (25-50):</span>
+                        <span className="text-gray-300">Moderate (50-100):</span>
                         <span className="text-yellow-400 font-semibold">
-                          {processedSamples.filter(s => (s.hmpiResult?.hmpi || 0) >= 25 && (s.hmpiResult?.hmpi || 0) < 50).length}
+                          {processedSamples.filter(s => (s.hmpiResult?.hmpi || 0) >= 50 && (s.hmpiResult?.hmpi || 0) < 100).length}
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-300">Polluted (50-75):</span>
+                        <span className="text-gray-300">Polluted (100-150):</span>
                         <span className="text-orange-400 font-semibold">
-                          {processedSamples.filter(s => (s.hmpiResult?.hmpi || 0) >= 50 && (s.hmpiResult?.hmpi || 0) < 75).length}
+                          {processedSamples.filter(s => (s.hmpiResult?.hmpi || 0) >= 100 && (s.hmpiResult?.hmpi || 0) < 150).length}
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-300">Critical (&gt; 75):</span>
+                        <span className="text-gray-300">Critical (&ge; 150):</span>
                         <span className="text-red-400 font-semibold">
-                          {processedSamples.filter(s => (s.hmpiResult?.hmpi || 0) >= 75).length}
+                          {processedSamples.filter(s => (s.hmpiResult?.hmpi || 0) >= 150).length}
                         </span>
                       </div>
                     </div>
@@ -441,7 +441,9 @@ export default function ResearcherReport() {
                   <p className="text-gray-300 text-center py-8">No data available</p>
                 ) : (
                   <div className="space-y-6">
-                {processedSamples.map((sample, index) => (
+                {[...processedSamples]
+                  .sort((a, b) => new Date(b.DateOfCollection || b.date) - new Date(a.DateOfCollection || a.date))
+                  .map((sample, index) => (
                   <div key={index} className="bg-gray-800 rounded-lg p-6 border border-gray-700">
                     {/* Sample Header */}
                     <div className="flex items-center justify-between mb-4">
@@ -450,6 +452,15 @@ export default function ResearcherReport() {
                           {sample.SampleID || `Sample ${index + 1}`} - {sample.LocationName || sample.location}
                         </h3>
                         <p className="text-gray-400">Date: {sample.DateOfCollection || sample.date}</p>
+                        {(sample.LabName || sample.LabCode) && (
+                          <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/40 border border-blue-700/40">
+                            <span className="text-xs text-blue-300 font-semibold">Uploaded by</span>
+                            <span className="text-xs text-blue-200">{sample.LabName || 'Unknown Lab'}</span>
+                            {sample.LabCode && (
+                              <span className="text-[10px] text-blue-300">({sample.LabCode})</span>
+                            )}
+                          </div>
+                        )}
                       </div>
                       <div className="text-right">
                         <div className={`text-2xl font-bold px-4 py-2 rounded-lg ${
@@ -755,13 +766,13 @@ export default function ResearcherReport() {
                         <Bar 
                           dataKey="concentration" 
                           fill="#EF4444" 
-                          name="concentration"
+                          name="Concentration (mg/L)"
                           radius={[4, 4, 0, 0]}
                         />
                         <Bar 
                           dataKey="standardLimit" 
                           fill="#10B981" 
-                          name="standardLimit"
+                          name="BIS Limit (mg/L)"
                           radius={[4, 4, 0, 0]}
                         />
                       </BarChart>
