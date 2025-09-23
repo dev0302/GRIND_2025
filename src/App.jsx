@@ -11,7 +11,7 @@ import FileUpload from "./pages/FileUpload"; // File Upload Page
 import PreviousFiles from "./pages/PreviousFiles"; // Previous Files Page
 import ResearcherReport from "./pages/ResearcherReport"; // Researcher Report
 import HeatMap from "./pages/HeatMap"; // HMPI Heat Map
-import OurVision from "./pages/OurVision"; // Our Vision Page
+import OurVision from "./pages/OurVision"; // Our Vision Pagee
 
 function App() {
   return (
