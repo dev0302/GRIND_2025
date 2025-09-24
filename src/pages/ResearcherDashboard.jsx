@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar.jsx";
+import Papa from "papaparse";
+import sampleHMPI from "../data/sample_hmpi_data.csv?url";
+import { searchIndianCities } from "../data/indianCities.js";
 
 export default function ResearcherDashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // Load user data from localStorage
@@ -27,6 +34,129 @@ export default function ResearcherDashboard() {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("role");
     navigate("/login");
+  };
+
+  const showToast = (message) => {
+    const toast = document.createElement('div');
+    toast.className = 'fixed top-20 right-4 bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300 translate-x-full';
+    toast.innerHTML = `
+      <div class="flex items-center space-x-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span>${message}</span>
+      </div>
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.classList.remove('translate-x-full');
+    }, 100);
+    setTimeout(() => {
+      toast.classList.add('translate-x-full');
+      setTimeout(() => {
+        if (toast.parentNode) document.body.removeChild(toast);
+      }, 300);
+    }, 3000);
+  };
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    
+    if (value.length >= 2) {
+      const results = searchIndianCities(value);
+      setSuggestions(results);
+      setShowSuggestions(true);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleSuggestionClick = (city) => {
+    setSearchQuery(city.city);
+    setShowSuggestions(false);
+  };
+
+  const handleSearchAnalyze = () => {
+    const normalized = searchQuery.trim().toLowerCase();
+    if (!normalized) {
+      showToast('Please enter a location to search.');
+      return;
+    }
+    
+    // Check if it's a supported demo location
+    const supportedLocations = [
+      'paschim vihar', 'punjabi bagh', 'rajouri garden', 'janakpuri', 
+      'vikaspuri', 'uttam nagar', 'dwarka', 'rohini', 'pitampura',
+      'shalimar bagh', 'azadpur', 'model town', 'civil lines',
+      'kashmere gate', 'chandni chowk', 'connaught place', 'cp',
+      'karol bagh', 'paharganj', 'lajpat nagar', 'greater kailash',
+      'gk', 'saket', 'malviya nagar', 'hauz khas', 'green park',
+      'vasant kunj', 'vasant vihar', 'defence colony', 'jangpura',
+      'nizamuddin', 'kalkaji', 'nehru place', 'okhla', 'jamia nagar',
+      'shaheen bagh', 'jasola', 'sarita vihar', 'mayur vihar',
+      'preet vihar', 'vivek vihar', 'shahdara', 'seelampur',
+      'gokulpuri', 'karawal nagar', 'yamuna vihar', 'dilshad garden',
+      'ghaziabad', 'noida', 'gurgaon', 'gurugram', 'faridabad'
+    ];
+    
+    if (!supportedLocations.includes(normalized)) {
+      showToast(`Currently supported demo locations include: Paschim Vihar, Punjabi Bagh, Rajouri Garden, Dwarka, Rohini, and other Delhi areas.`);
+      return;
+    }
+
+    setIsLoading(true);
+    Papa.parse(sampleHMPI, {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      complete: function (results) {
+        const parsedData = results.data.map((row, index) => ({
+          SampleID: row.SampleID || `S${index + 1}`,
+          LabCode: row.LabCode || "N/A",
+          LabName: row.LabName || "N/A",
+          AccreditationID: row.AccreditationID || "N/A",
+          CollectorName: row.CollectorName || "N/A",
+          DateOfCollection: row.DateOfCollection || new Date().toISOString().split('T')[0],
+          TimeOfCollection: row.TimeOfCollection || "N/A",
+          Depth: row.Depth || "N/A",
+          SourceType: row.SourceType || "N/A",
+          LocationName: row.LocationName || "Unknown",
+          Latitude: row.Latitude || "N/A",
+          Longitude: row.Longitude || "N/A",
+          Photo: row.Photo || "N/A",
+          pH: row.pH || "N/A",
+          EC: row.EC || "N/A",
+          TDS: row.TDS || "N/A",
+          Temperature: row.Temperature || "N/A",
+          Turbidity: row.Turbidity || "N/A",
+          Pb: row.Pb || 0,
+          As: row.As || 0,
+          Cd: row.Cd || 0,
+          Cr: row.Cr || 0,
+          Ni: row.Ni || 0,
+          Hg: row.Hg || 0,
+          Cu: row.Cu || 0,
+          Zn: row.Zn || 0,
+          Fe: row.Fe || 0,
+          Mn: row.Mn || 0,
+          location: row.LocationName || "Unknown",
+          date: row.DateOfCollection || new Date().toISOString().split('T')[0],
+        }));
+
+        localStorage.setItem("researchData", JSON.stringify(parsedData));
+        localStorage.setItem("uploadedFileName", "sample_hmpi_data.csv (Paschim Vihar)");
+        setIsLoading(false);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        navigate("/researcherReport");
+      },
+      error: function (err) {
+        console.error("CSV Parse Error:", err);
+        setIsLoading(false);
+        showToast("Error loading sample data: " + err.message);
+      },
+    });
   };
 
   // Sample lab data - in a real app, this would come from the user's profile
@@ -181,7 +311,7 @@ export default function ResearcherDashboard() {
         </div>
 
         {/* Action Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           {/* Upload New File Card */}
           <div className="bg-gray-900 p-8 rounded-2xl shadow-lg border border-gray-700 hover:border-cyan-500/50 transition-all duration-300 group">
             <div className="flex items-center mb-6">
@@ -228,6 +358,73 @@ export default function ResearcherDashboard() {
             >
               View All Files
             </button>
+          </div>
+
+          {/* Search by Location Card */}
+          <div className="bg-gray-900 p-8 rounded-2xl shadow-lg border border-gray-700 hover:border-emerald-500/50 transition-all duration-300 group">
+            <div className="flex items-center mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-white mb-2">Search by Location</h3>
+                <p className="text-gray-400">Type a location to analyze demo data</p>
+              </div>
+            </div>
+            <p className="text-gray-300 mb-6">
+              Try entering any Delhi area like <span className="text-emerald-400 font-semibold">Paschim Vihar</span>, <span className="text-emerald-400 font-semibold">Punjabi Bagh</span>, <span className="text-emerald-400 font-semibold">Dwarka</span>, or <span className="text-emerald-400 font-semibold">Rohini</span> to load sample HMPI data and see the full analysis without uploading a file.
+            </p>
+            <div className="relative">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex-1 relative">
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    onFocus={() => searchQuery.length >= 2 && setShowSuggestions(true)}
+                    onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+                    placeholder="Enter location (e.g., Paschim Vihar)"
+                    className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  />
+                  
+                  {/* Suggestions Dropdown */}
+                  {showSuggestions && suggestions.length > 0 && (
+                    <div className="absolute z-50 w-full mt-1 bg-gray-800 border border-gray-700 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                      {suggestions.map((city, index) => (
+                        <div
+                          key={index}
+                          onClick={() => handleSuggestionClick(city)}
+                          className="px-4 py-3 hover:bg-gray-700 cursor-pointer border-b border-gray-700 last:border-b-0"
+                        >
+                          <div className="text-white font-medium">{city.city}</div>
+                          <div className="text-gray-400 text-sm">{city.district}, {city.state}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                
+                <button
+                  onClick={handleSearchAnalyze}
+                  disabled={isLoading}
+                  className="sm:w-40 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-semibold py-3 px-6 rounded-lg hover:shadow-lg hover:shadow-emerald-500/25 transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center"
+                >
+                  {isLoading ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Loading...
+                    </>
+                  ) : (
+                    'Analyze'
+                  )}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
