@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function OurVision() {
@@ -11,6 +11,56 @@ function OurVision() {
   const handleResearcherClick = () => {
     navigate('/login');
   };
+
+  // Show toast notification on component mount
+  useEffect(() => {
+    const showToast = () => {
+      const toast = document.createElement('div');
+      toast.className = 'fixed top-20 right-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-4 rounded-lg shadow-2xl z-50 transform transition-all duration-500 translate-x-full max-w-md';
+      toast.innerHTML = `
+        <div class="flex items-start space-x-3">
+          <div class="flex-shrink-0">
+            <svg class="w-6 h-6 text-purple-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold text-purple-100 mb-1">Our Comprehensive Vision</h4>
+            <p class="text-sm text-purple-200 leading-relaxed">
+              This platform represents our vision for a complete research ecosystem - not just a calculator, 
+              but a comprehensive dashboard featuring data management, historical records, automated reporting, 
+              interactive visualizations, and seamless collaboration tools for environmental researchers and policymakers.
+            </p>
+          </div>
+          <button onclick="this.parentElement.parentElement.remove()" class="flex-shrink-0 text-purple-200 hover:text-white transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      `;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.classList.remove('translate-x-full');
+      }, 100);
+      
+      // Auto-remove after 10 seconds
+      setTimeout(() => {
+        toast.classList.add('translate-x-full');
+        setTimeout(() => {
+          if (document.body.contains(toast)) {
+            document.body.removeChild(toast);
+          }
+        }, 500);
+      }, 10000);
+    };
+
+    // Show toast after a short delay
+    const timer = setTimeout(showToast, 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className='w-full min-h-screen'>

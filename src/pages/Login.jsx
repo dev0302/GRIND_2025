@@ -1,6 +1,6 @@
 
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 // Inlined sample users and validation helpers to avoid import path issues during build
@@ -133,6 +133,14 @@ export default function Login() {
   const [stepIndex, setStepIndex] = useState(0); // 0,1,2 for staged loader
   const [loadingOrg, setLoadingOrg] = useState(""); // NABL/CPCB/SPCB based on ID
 
+  // Auto-fill demo credentials on component mount
+  useEffect(() => {
+    setEmail("dev.malik@example.com");
+    setPassword("password123");
+    setAccreditationId("NABL-12345");
+    setLoginMethod("id");
+  }, []);
+
   const handleLogin = (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -226,6 +234,22 @@ export default function Login() {
               </div>
               <h2 className="text-3xl font-bold text-white mb-2">Lab Researcher Login</h2>
               <p className="text-gray-300">Sign in with your accreditation credentials</p>
+            </div>
+
+            {/* Demo Credentials Notice */}
+            <div className="mb-6 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 rounded-lg p-4">
+              <h4 className="text-yellow-300 font-semibold mb-2 flex items-center text-sm">
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Demo Credentials Pre-filled
+              </h4>
+              <div className="text-xs text-yellow-100 space-y-1">
+                <p><strong>Email:</strong> dev.malik@example.com</p>
+                <p><strong>Password:</strong> password123</p>
+                <p><strong>Accreditation ID:</strong> NABL-12345</p>
+                <p className="text-yellow-200 mt-1">All fields are auto-filled for demo purposes</p>
+              </div>
             </div>
 
             <form onSubmit={handleLogin} className="space-y-6">
@@ -338,20 +362,67 @@ export default function Login() {
                 </a>
               </div>
 
-          <button
-            type="submit"
-                disabled={isLoading}
-                className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold py-3 px-4 rounded-lg hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
+          {/* Animated Sign In Button */}
+          <div className="relative group">
+            {/* Continuous pulsing ring */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg animate-pulse opacity-30"></div>
+            
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="relative w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold py-3 px-4 rounded-lg hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
+            >
+              {/* Animated background circle */}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
+              {/* Pulsing ring animation */}
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg opacity-75 group-hover:opacity-100 animate-ping"></div>
+              
+              {/* Content */}
+              <div className="relative flex items-center justify-center">
                 {isLoading ? (
                   <div className="flex items-center justify-center">
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
                     Signing in...
                   </div>
                 ) : (
-                  'Sign In'
+                  <>
+                    <span className="mr-2">Sign In</span>
+                    {/* Animated arrow */}
+                    <div className="relative">
+                      <svg 
+                        className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth={2} 
+                          d="M13 7l5 5m0 0l-5 5m5-5H6" 
+                        />
+                      </svg>
+                      {/* Arrow trail effect */}
+                      <div className="absolute inset-0 bg-white/30 rounded-full scale-0 group-hover:scale-150 transition-transform duration-500 ease-out"></div>
+                    </div>
+                  </>
                 )}
-          </button>
+              </div>
+            </button>
+            
+            {/* Floating animation circles */}
+            <div className="absolute -top-1 -right-1 w-2 h-2 bg-blue-400 rounded-full animate-bounce opacity-60"></div>
+            <div className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse opacity-80"></div>
+            
+            {/* "Click Me" indicator */}
+            <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-full animate-bounce opacity-90">
+              Click Me!
+            </div>
+            
+            {/* Glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+          </div>
         </form>
 
             <div className="mt-8 text-center">

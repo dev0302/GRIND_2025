@@ -4,6 +4,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.heat';
 import { heatmapData } from '../data/heatmapData';
+import Navbar from '../components/Navbar';
 
 // Fix for default markers in react-leaflet
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
@@ -136,8 +137,59 @@ export default function HeatMap() {
   const pollutedLocations = heatmapData.filter(loc => loc.quality === 'Polluted').length;
   const criticalLocations = heatmapData.filter(loc => loc.quality === 'Critical').length;
 
+  // Show toast notification on component mount
+  useEffect(() => {
+    const showToast = () => {
+      const toast = document.createElement('div');
+      toast.className = 'fixed top-20 right-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-4 rounded-lg shadow-2xl z-50 transform transition-all duration-500 translate-x-full max-w-md';
+      toast.innerHTML = `
+        <div class="flex items-start space-x-3">
+          <div class="flex-shrink-0">
+            <svg class="w-6 h-6 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold text-blue-100 mb-1">Demo Heat Map Visualization</h4>
+            <p class="text-sm text-blue-200 leading-relaxed">
+              This heat map displays sample data to demonstrate our HMPI visualization capabilities. 
+              When research laboratories upload real groundwater quality data, the system will automatically 
+              generate comprehensive heat maps showing pollution patterns, risk zones, and environmental 
+              impact assessments across different geographical regions.
+            </p>
+          </div>
+          <button onclick="this.parentElement.parentElement.remove()" class="flex-shrink-0 text-blue-200 hover:text-white transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      `;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.classList.remove('translate-x-full');
+      }, 100);
+      
+      // Auto-remove after 8 seconds
+      setTimeout(() => {
+        toast.classList.add('translate-x-full');
+        setTimeout(() => {
+          if (document.body.contains(toast)) {
+            document.body.removeChild(toast);
+          }
+        }, 500);
+      }, 8000);
+    };
+
+    // Show toast after a short delay
+    const timer = setTimeout(showToast, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-800 text-white pt-16">
+      <Navbar />
       <div className="max-w-7xl mx-auto p-6">
         {/* Header */}
         <div className="mb-8">
@@ -145,7 +197,7 @@ export default function HeatMap() {
             HMPI Heat Map
           </h1>
           <p className="text-gray-300 text-lg">
-            Interactive heat map visualization of Heavy Metal Pollution Index across Paschim Vihar area using OpenStreetMap
+            Interactive heat map visualization of Heavy Metal Pollution Index across Delhi NCR area using OpenStreetMap
           </p>
         </div>
 

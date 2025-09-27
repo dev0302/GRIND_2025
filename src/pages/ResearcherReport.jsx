@@ -264,12 +264,57 @@ export default function ResearcherReport() {
             >
               Back to Dashboard
             </button>
-            <button
-              onClick={handleDownloadPDF}
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-2 px-6 rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300"
-            >
-              Download PDF Report
-            </button>
+            {/* Animated Download PDF Button */}
+            <div className="relative group">
+              {/* Continuous pulsing ring */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg animate-pulse opacity-30"></div>
+              
+              <button
+                onClick={handleDownloadPDF}
+                className="relative bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-2 px-6 rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
+              >
+                {/* Animated background circle */}
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                {/* Pulsing ring animation */}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg opacity-75 group-hover:opacity-100 animate-ping"></div>
+                
+                {/* Content */}
+                <div className="relative flex items-center justify-center">
+                  <span className="mr-2">Download PDF Report</span>
+                  {/* Animated download icon */}
+                  <div className="relative">
+                    <svg 
+                      className="w-5 h-5 transform group-hover:translate-y-1 transition-transform duration-300" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        strokeWidth={2} 
+                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" 
+                      />
+                    </svg>
+                    {/* Download trail effect */}
+                    <div className="absolute inset-0 bg-white/30 rounded-full scale-0 group-hover:scale-150 transition-transform duration-500 ease-out"></div>
+                  </div>
+                </div>
+              </button>
+              
+              {/* Floating animation circles */}
+              <div className="absolute -top-1 -right-1 w-2 h-2 bg-cyan-400 rounded-full animate-bounce opacity-60"></div>
+              <div className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse opacity-80"></div>
+              
+              {/* "Click Me" indicator */}
+              <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-full animate-bounce opacity-90">
+                Click Me!
+              </div>
+              
+              {/* Glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+            </div>
           </div>
         </div>
 

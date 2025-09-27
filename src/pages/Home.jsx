@@ -49,18 +49,109 @@ function Home() {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
+                {/* Animated User Button */}
+                <div className="relative group">
+                  {/* Continuous pulsing ring */}
+                  <div className="absolute -inset-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg animate-pulse opacity-30"></div>
+                  
                 <button 
                   onClick={handleGetStarted}
-                  className="px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-1"
-                >
-                  Get Started as User
+                    className="relative px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
+                  >
+                    {/* Animated background circle */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    {/* Pulsing ring animation */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg opacity-75 group-hover:opacity-100 animate-ping"></div>
+                    
+                    {/* Content */}
+                    <div className="relative flex items-center justify-center">
+                      <span className="mr-2">Get Started as User</span>
+                      {/* Animated arrow */}
+                      <div className="relative">
+                        <svg 
+                          className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                        >
+                          <path 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            strokeWidth={2} 
+                            d="M13 7l5 5m0 0l-5 5m5-5H6" 
+                          />
+                        </svg>
+                        {/* Arrow trail effect */}
+                        <div className="absolute inset-0 bg-white/30 rounded-full scale-0 group-hover:scale-150 transition-transform duration-500 ease-out"></div>
+                      </div>
+                    </div>
                 </button>
+                  
+                  {/* Floating animation circles */}
+                  <div className="absolute -top-2 -right-2 w-3 h-3 bg-blue-400 rounded-full animate-bounce opacity-60"></div>
+                  <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-cyan-400 rounded-full animate-pulse opacity-80"></div>
+                  
+                  {/* "Click Me" indicator */}
+                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-full animate-bounce opacity-90">
+                    Click Me!
+                  </div>
+                  
+                  {/* Glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                </div>
+                
+                {/* Animated Researcher Button */}
+                <div className="relative group">
+                  {/* Continuous pulsing ring */}
+                  <div className="absolute -inset-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg animate-pulse opacity-30"></div>
+                  
                 <button 
                   onClick={handleResearcherClick}
-                  className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:shadow-xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:-translate-y-1"
-                >
-                  Get Started as Researcher
+                    className="relative px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:shadow-xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
+                  >
+                    {/* Animated background circle */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    {/* Pulsing ring animation */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg opacity-75 group-hover:opacity-100 animate-ping"></div>
+                    
+                    {/* Content */}
+                    <div className="relative flex items-center justify-center">
+                      <span className="mr-2">Get Started as Researcher</span>
+                      {/* Animated arrow */}
+                      <div className="relative">
+                        <svg 
+                          className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                        >
+                          <path 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            strokeWidth={2} 
+                            d="M13 7l5 5m0 0l-5 5m5-5H6" 
+                          />
+                        </svg>
+                        {/* Arrow trail effect */}
+                        <div className="absolute inset-0 bg-white/30 rounded-full scale-0 group-hover:scale-150 transition-transform duration-500 ease-out"></div>
+                      </div>
+                    </div>
                 </button>
+                  
+                  {/* Floating animation circles */}
+                  <div className="absolute -top-2 -right-2 w-3 h-3 bg-purple-400 rounded-full animate-bounce opacity-60"></div>
+                  <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-pink-400 rounded-full animate-pulse opacity-80"></div>
+                  
+                  {/* "Click Me" indicator */}
+                  <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-full animate-bounce opacity-90">
+                    Click Me!
+                  </div>
+                  
+                  {/* Glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                </div>
               </div>
             </div>
             
@@ -397,12 +488,58 @@ function Home() {
             </div>
             
             <div className="space-y-4 mb-6">
+              {/* Animated Login Button */}
+              <div className="relative group">
+                {/* Continuous pulsing ring */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg animate-pulse opacity-30"></div>
+                
               <button
                 onClick={handleLogin}
-                className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-1"
-              >
-                Login to Dashboard
+                  className="relative w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
+                >
+                  {/* Animated background circle */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  
+                  {/* Pulsing ring animation */}
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg opacity-75 group-hover:opacity-100 animate-ping"></div>
+                  
+                  {/* Content */}
+                  <div className="relative flex items-center justify-center">
+                    <span className="mr-2">Login to Dashboard</span>
+                    {/* Animated arrow */}
+                    <div className="relative">
+                      <svg 
+                        className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round" 
+                          strokeWidth={2} 
+                          d="M13 7l5 5m0 0l-5 5m5-5H6" 
+                        />
+                      </svg>
+                      {/* Arrow trail effect */}
+                      <div className="absolute inset-0 bg-white/30 rounded-full scale-0 group-hover:scale-150 transition-transform duration-500 ease-out"></div>
+                    </div>
+                  </div>
               </button>
+                
+                {/* Floating animation circles */}
+                <div className="absolute -top-1 -right-1 w-2 h-2 bg-blue-400 rounded-full animate-bounce opacity-60"></div>
+                <div className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse opacity-80"></div>
+                
+                {/* "Click Me" indicator */}
+                <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-full animate-bounce opacity-90">
+                  Click Me!
+                </div>
+                
+                {/* Glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+              </div>
+              
               <button
                 onClick={handleRegister}
                 className="w-full px-6 py-3 border-2 border-blue-500 text-blue-400 font-semibold rounded-lg hover:bg-blue-500 hover:text-white transition-all duration-300"

@@ -155,6 +155,65 @@ export default function FileUpload() {
               CSV columns: <b>SampleID, LocationName, Metal Concentrations, DateOfCollection</b>
             </p>
             
+            {/* Sample CSV Download Section */}
+            <div className="mt-4 p-4 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="text-green-300 font-semibold text-sm mb-1 flex items-center">
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    📄 Sample CSV Template
+                  </h4>
+                  <p className="text-green-100 text-xs">Download our sample file to see the correct format and test the upload functionality</p>
+                </div>
+                <div className="relative group">
+                  <button
+                    onClick={() => {
+                      // Create a comprehensive sample CSV content
+                      const csvContent = `SampleID,LabCode,LabName,AccreditationID,CollectorName,DateOfCollection,TimeOfCollection,Depth,SourceType,LocationName,Latitude,Longitude,Photo,pH,EC,TDS,Temperature,Turbidity,Pb,As,Cd,Cr,Ni,Hg,Cu,Zn,Fe,Mn
+S001,LAB001,Central Water Research Lab,NABL-12345,Dr. Dev Malik,2024-01-15,10:30,5m,Borewell,Paschim Vihar,28.7041,77.1025,sample1.jpg,7.2,450,320,25.5,2.1,0.045,0.025,0.008,0.12,0.015,0.002,0.08,0.12,0.15,0.08
+S002,LAB001,Central Water Research Lab,NABL-12345,Dr. Dev Malik,2024-01-15,11:00,8m,Borewell,Paschim Vihar,28.7045,77.1030,sample2.jpg,7.1,480,340,26.0,1.8,0.042,0.028,0.009,0.115,0.018,0.0018,0.085,0.125,0.16,0.085
+S003,LAB001,Central Water Research Lab,NABL-12345,Dr. Dev Malik,2024-01-15,11:30,6m,Borewell,Paschim Vihar,28.7038,77.1028,sample3.jpg,7.3,465,330,25.8,2.3,0.048,0.022,0.007,0.125,0.012,0.0022,0.075,0.115,0.14,0.075
+S004,LAB001,Central Water Research Lab,NABL-12345,Dr. Dev Malik,2024-01-16,09:15,7m,Borewell,Punjabi Bagh,28.6500,77.1200,sample4.jpg,7.0,420,300,24.8,1.9,0.038,0.020,0.006,0.110,0.010,0.0015,0.070,0.110,0.135,0.070
+S005,LAB001,Central Water Research Lab,NABL-12345,Dr. Dev Malik,2024-01-16,10:45,9m,Borewell,Dwarka,28.5920,77.0460,sample5.jpg,7.4,490,350,26.2,2.0,0.050,0.030,0.010,0.130,0.020,0.0025,0.090,0.130,0.170,0.090`;
+                      
+                      const blob = new Blob([csvContent], { type: 'text/csv' });
+                      const url = window.URL.createObjectURL(blob);
+                      const a = document.createElement('a');
+                      a.href = url;
+                      a.download = 'sample_research_data.csv';
+                      document.body.appendChild(a);
+                      a.click();
+                      document.body.removeChild(a);
+                      window.URL.revokeObjectURL(url);
+                    }}
+                    className="relative bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:shadow-lg hover:shadow-green-500/25 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center overflow-hidden"
+                  >
+                    {/* Animated background */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-emerald-600 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    {/* Content */}
+                    <div className="relative flex items-center">
+                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                      Download Sample CSV
+                    </div>
+                  </button>
+                  
+                  {/* "Click Me" indicator */}
+                  <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-full animate-bounce opacity-90">
+                    Click Me!
+                  </div>
+                  
+                  {/* Floating animation circles */}
+                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-green-400 rounded-full animate-bounce opacity-60"></div>
+                  <div className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse opacity-80"></div>
+                </div>
+              </div>
+            </div>
+            
             {/* File Upload Status */}
             {isFileUploaded && (
               <div className="mt-4 p-3 bg-green-900/20 border border-green-700/30 rounded-lg">
@@ -175,16 +234,67 @@ export default function FileUpload() {
                 <div className="text-sm text-gray-400">
                   {isFileUploaded ? "Ready to generate report" : "Upload a file to generate report"}
                 </div>
-                <button
-                  onClick={handleGenerateReport}
-                  className={`font-semibold py-2 px-6 rounded-lg transition-all duration-300 transform hover:-translate-y-1 ${
-                    isFileUploaded 
-                      ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:shadow-lg hover:shadow-indigo-500/25" 
-                      : "bg-gray-600 text-gray-300 hover:bg-gray-500"
-                  }`}
-                >
-                  Generate Report
-                </button>
+                <div className="relative group">
+                  <button
+                    onClick={handleGenerateReport}
+                    className={`relative font-semibold py-2 px-6 rounded-lg transition-all duration-300 transform hover:-translate-y-1 overflow-hidden ${
+                      isFileUploaded 
+                        ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:shadow-lg hover:shadow-indigo-500/25" 
+                        : "bg-gray-600 text-gray-300 hover:bg-gray-500"
+                    }`}
+                  >
+                    {/* Animated background for active state */}
+                    {isFileUploaded && (
+                      <>
+                        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-700 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg opacity-75 group-hover:opacity-100 animate-ping"></div>
+                      </>
+                    )}
+                    
+                    {/* Content */}
+                    <div className="relative flex items-center justify-center">
+                      <span className="mr-2">Generate Report</span>
+                      {/* Animated icon */}
+                      <div className="relative">
+                        <svg 
+                          className="w-4 h-4 transform group-hover:scale-110 transition-transform duration-300" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                        >
+                          <path 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            strokeWidth={2} 
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" 
+                          />
+                        </svg>
+                        {/* Icon trail effect */}
+                        <div className="absolute inset-0 bg-white/30 rounded-full scale-0 group-hover:scale-150 transition-transform duration-500 ease-out"></div>
+                      </div>
+                    </div>
+                  </button>
+                  
+                  {/* "Click Me" indicator - only show when file is uploaded */}
+                  {isFileUploaded && (
+                    <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-full animate-bounce opacity-90">
+                      Click Me!
+                    </div>
+                  )}
+                  
+                  {/* Floating animation circles - only show when file is uploaded */}
+                  {isFileUploaded && (
+                    <>
+                      <div className="absolute -top-1 -right-1 w-2 h-2 bg-indigo-400 rounded-full animate-bounce opacity-60"></div>
+                      <div className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 bg-purple-400 rounded-full animate-pulse opacity-80"></div>
+                    </>
+                  )}
+                  
+                  {/* Glow effect - only show when file is uploaded */}
+                  {isFileUploaded && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                  )}
+                </div>
               </div>
             </div>
           </div>

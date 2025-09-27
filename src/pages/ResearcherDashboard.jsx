@@ -313,7 +313,16 @@ export default function ResearcherDashboard() {
         {/* Action Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           {/* Upload New File Card */}
-          <div className="bg-gray-900 p-8 rounded-2xl shadow-lg border border-gray-700 hover:border-cyan-500/50 transition-all duration-300 group">
+          <div className="bg-gray-900 p-8 rounded-2xl shadow-lg border border-gray-700 hover:border-cyan-500/50 transition-all duration-300 group relative">
+            {/* Click Me indicator */}
+            <div className="absolute -top-3 -right-3 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-full animate-bounce opacity-90 z-10">
+              Click Me!
+            </div>
+            
+            {/* Floating animation circles */}
+            <div className="absolute -top-2 -right-2 w-3 h-3 bg-cyan-400 rounded-full animate-bounce opacity-60"></div>
+            <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-blue-400 rounded-full animate-pulse opacity-80"></div>
+            
             <div className="flex items-center mb-6">
               <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -328,6 +337,7 @@ export default function ResearcherDashboard() {
             <p className="text-gray-300 mb-6">
               Upload your groundwater research data in CSV format. Our system will automatically calculate HMPI values, generate comprehensive reports, and provide detailed analysis with trend tracking.
             </p>
+            
             <button
               onClick={handleUploadFile}
               className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold py-3 px-6 rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform hover:-translate-y-1"
@@ -337,7 +347,16 @@ export default function ResearcherDashboard() {
           </div>
 
           {/* View Previous Files Card */}
-          <div className="bg-gray-900 p-8 rounded-2xl shadow-lg border border-gray-700 hover:border-purple-500/50 transition-all duration-300 group">
+          <div className="bg-gray-900 p-8 rounded-2xl shadow-lg border border-gray-700 hover:border-purple-500/50 transition-all duration-300 group relative">
+            {/* Click Me indicator */}
+            <div className="absolute -top-3 -right-3 bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-full animate-bounce opacity-90 z-10">
+              Click Me!
+            </div>
+            
+            {/* Floating animation circles */}
+            <div className="absolute -top-2 -right-2 w-3 h-3 bg-purple-400 rounded-full animate-bounce opacity-60"></div>
+            <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-pink-400 rounded-full animate-pulse opacity-80"></div>
+            
             <div className="flex items-center mb-6">
               <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
