@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.heat';
-import { heatmapData } from '../data/heatmapData';
+import { heatmapData } from '../data/heatmapData.js';
 import Navbar from '../components/Navbar';
 
 // Fix for default markers in react-leaflet
