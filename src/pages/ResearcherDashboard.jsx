@@ -19,7 +19,49 @@ export default function ResearcherDashboard() {
     if (userData) {
       setUser(JSON.parse(userData));
     }
+
+    // Show welcome toast for registered lab dashboard
+    showWelcomeToast();
   }, []);
+
+  const showWelcomeToast = () => {
+    const toast = document.createElement('div');
+    toast.className = 'fixed top-20 right-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-4 rounded-lg shadow-xl z-50 transform transition-all duration-500 translate-x-full border border-blue-400/30';
+    toast.innerHTML = `
+      <div class="flex items-start space-x-3">
+        <div class="flex-shrink-0">
+          <svg class="w-6 h-6 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <div class="flex-1">
+          <h4 class="font-semibold text-blue-100 mb-1">Welcome to EnviroLab Dashboard</h4>
+          <p class="text-sm text-blue-200 leading-relaxed">
+            This is the dashboard of a registered NABL-accredited laboratory showcasing sample data and analysis capabilities. All displayed information represents a professional demonstration of our HMPI analysis platform.
+          </p>
+        </div>
+        <button onclick="this.parentElement.parentElement.remove()" class="flex-shrink-0 text-blue-200 hover:text-white transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    `;
+    document.body.appendChild(toast);
+    
+    // Animate in
+    setTimeout(() => {
+      toast.classList.remove('translate-x-full');
+    }, 100);
+    
+    // Auto remove after 8 seconds
+    setTimeout(() => {
+      toast.classList.add('translate-x-full');
+      setTimeout(() => {
+        if (toast.parentNode) document.body.removeChild(toast);
+      }, 500);
+    }, 8000);
+  };
 
   const handleUploadFile = () => {
     navigate("/fileUpload");

@@ -4,7 +4,115 @@ import Navbar from "../components/Navbar";
 
 export default function PreviousFiles() {
   const navigate = useNavigate();
+  const [viewModalOpen, setViewModalOpen] = useState(false);
+  const [selectedFileData, setSelectedFileData] = useState(null);
   
+  // Function to generate realistic CSV data based on file characteristics
+  const generateCSVData = (file) => {
+    const baseData = {
+      1: { // Delhi_Groundwater_Study_2024.csv
+        locations: ["Paschim Vihar", "Model Town", "Karol Bagh"],
+        avgHMPI: 68.5,
+        sampleCount: 45,
+        labName: "EnviroLab Pvt Ltd",
+        accreditationId: "NABL-001"
+      },
+      2: { // Gurgaon_Industrial_Area_2024.csv
+        locations: ["Sector 14", "Sector 29", "Industrial Area"],
+        avgHMPI: 82.3,
+        sampleCount: 32,
+        labName: "GreenCheck Labs",
+        accreditationId: "NABL-002"
+      },
+      3: { // Noida_Residential_2024.csv
+        locations: ["Sector 62", "Sector 18", "Greater Noida"],
+        avgHMPI: 45.2,
+        sampleCount: 28,
+        labName: "AquaTest Solutions",
+        accreditationId: "CPCB-456"
+      },
+      4: { // Faridabad_Urban_2024.csv
+        locations: ["Sector 16", "Ballabgarh", "Nehru Ground"],
+        avgHMPI: 71.8,
+        sampleCount: 38,
+        labName: "Water Quality Institute",
+        accreditationId: "SPCB-789"
+      },
+      5: { // Ghaziabad_Industrial_2024.csv
+        locations: ["Industrial Area", "Vasundhara", "Raj Nagar"],
+        avgHMPI: 89.1,
+        sampleCount: 41,
+        labName: "EnviroLab Pvt Ltd",
+        accreditationId: "NABL-001"
+      },
+      6: { // Delhi_Rural_Areas_2024.csv
+        locations: ["Najafgarh", "Nangloi", "Bawana"],
+        avgHMPI: 52.4,
+        sampleCount: 25,
+        labName: "Rural Water Testing Lab",
+        accreditationId: "NABL-003"
+      }
+    };
+
+    const config = baseData[file.id];
+    const samples = [];
+    
+    // Generate sample data based on the file characteristics
+    for (let i = 1; i <= config.sampleCount; i++) {
+      const location = config.locations[Math.floor(Math.random() * config.locations.length)];
+      const baseDate = new Date(file.uploadDate);
+      const sampleDate = new Date(baseDate.getTime() - Math.random() * 30 * 24 * 60 * 60 * 1000);
+      
+      // Generate realistic metal concentrations based on HMPI level
+      const hmpiFactor = config.avgHMPI / 100;
+      const baseConcentrations = {
+        Pb: 0.01 + (hmpiFactor * 0.08),
+        As: 0.005 + (hmpiFactor * 0.05),
+        Cd: 0.002 + (hmpiFactor * 0.01),
+        Cr: 0.01 + (hmpiFactor * 0.1),
+        Ni: 0.005 + (hmpiFactor * 0.02),
+        Hg: 0.0005 + (hmpiFactor * 0.003),
+        Cu: 0.01 + (hmpiFactor * 0.05),
+        Zn: 0.05 + (hmpiFactor * 0.2),
+        Fe: 0.1 + (hmpiFactor * 0.5),
+        Mn: 0.02 + (hmpiFactor * 0.1)
+      };
+
+      samples.push({
+        SampleID: `S${String(i).padStart(3, '0')}`,
+        LabCode: `LAB${String(file.id).padStart(3, '0')}`,
+        LabName: config.labName,
+        AccreditationID: config.accreditationId,
+        CollectorName: "Dr. Rajesh Kumar",
+        DateOfCollection: sampleDate.toISOString().split('T')[0],
+        TimeOfCollection: `${String(Math.floor(Math.random() * 12) + 8).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`,
+        Depth: `${Math.floor(Math.random() * 15) + 5}m`,
+        SourceType: Math.random() > 0.5 ? "Borewell" : "Hand Pump",
+        LocationName: location,
+        Latitude: (28.5 + Math.random() * 0.5).toFixed(4),
+        Longitude: (77.0 + Math.random() * 0.5).toFixed(4),
+        Photo: `sample_${i}.jpg`,
+        pH: (6.5 + Math.random() * 1.5).toFixed(1),
+        EC: Math.floor(300 + Math.random() * 400),
+        TDS: Math.floor(200 + Math.random() * 300),
+        Temperature: (22 + Math.random() * 8).toFixed(1),
+        Turbidity: (1.0 + Math.random() * 3.0).toFixed(1),
+        Pb: (baseConcentrations.Pb + (Math.random() - 0.5) * 0.02).toFixed(3),
+        As: (baseConcentrations.As + (Math.random() - 0.5) * 0.01).toFixed(3),
+        Cd: (baseConcentrations.Cd + (Math.random() - 0.5) * 0.005).toFixed(3),
+        Cr: (baseConcentrations.Cr + (Math.random() - 0.5) * 0.02).toFixed(3),
+        Ni: (baseConcentrations.Ni + (Math.random() - 0.5) * 0.01).toFixed(3),
+        Hg: (baseConcentrations.Hg + (Math.random() - 0.5) * 0.001).toFixed(4),
+        Cu: (baseConcentrations.Cu + (Math.random() - 0.5) * 0.01).toFixed(3),
+        Zn: (baseConcentrations.Zn + (Math.random() - 0.5) * 0.05).toFixed(3),
+        Fe: (baseConcentrations.Fe + (Math.random() - 0.5) * 0.1).toFixed(3),
+        Mn: (baseConcentrations.Mn + (Math.random() - 0.5) * 0.02).toFixed(3)
+      });
+    }
+    
+    return samples;
+  };
+
   // Sample data for previously submitted files
   const [previousFiles] = useState([
     {
@@ -86,14 +194,42 @@ export default function PreviousFiles() {
   };
 
   const handleViewReport = (fileId) => {
-    // For demo purposes, we'll show an alert
-    // In a real app, this would load the specific report
-    alert(`Viewing report for file ID: ${fileId}\n\nThis would open the detailed report for this dataset.`);
+    const file = previousFiles.find(f => f.id === fileId);
+    if (file) {
+      const csvData = generateCSVData(file);
+      setSelectedFileData({ file, csvData });
+      setViewModalOpen(true);
+    }
   };
 
   const handleDownloadReport = (fileId) => {
-    // For demo purposes, we'll show an alert
-    alert(`Downloading PDF report for file ID: ${fileId}\n\nThis would download the PDF report.`);
+    const file = previousFiles.find(f => f.id === fileId);
+    if (file) {
+      const csvData = generateCSVData(file);
+      
+      // Convert data to CSV format
+      const headers = Object.keys(csvData[0]);
+      const csvContent = [
+        headers.join(','),
+        ...csvData.map(row => headers.map(header => `"${row[header]}"`).join(','))
+      ].join('\n');
+      
+      // Create and download the file
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', file.fileName);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+
+  const closeModal = () => {
+    setViewModalOpen(false);
+    setSelectedFileData(null);
   };
 
   const getStatusColor = (status) => {
@@ -219,13 +355,13 @@ export default function PreviousFiles() {
                           onClick={() => handleViewReport(file.id)}
                           className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors"
                         >
-                          View Report
+                          View CSV
                         </button>
                         <button
                           onClick={() => handleDownloadReport(file.id)}
                           className="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700 transition-colors"
                         >
-                          Download PDF
+                          Download CSV
                         </button>
                       </div>
                     </td>
@@ -262,6 +398,98 @@ export default function PreviousFiles() {
           </div>
         </div>
       </div>
+
+      {/* View Modal */}
+      {viewModalOpen && selectedFileData && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-gray-800 rounded-xl p-6 w-full max-w-6xl max-h-[90vh] overflow-hidden">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-2xl font-bold text-teal-400">
+                {selectedFileData.file.fileName}
+              </h3>
+              <button
+                onClick={closeModal}
+                className="text-gray-400 hover:text-white text-2xl"
+              >
+                ×
+              </button>
+            </div>
+            
+            <div className="mb-4 text-sm text-gray-300">
+              <p><strong>Lab:</strong> {selectedFileData.file.labName} ({selectedFileData.file.accreditationId})</p>
+              <p><strong>Samples:</strong> {selectedFileData.file.sampleCount} | <strong>Avg HMPI:</strong> {selectedFileData.file.avgHMPI}</p>
+              <p><strong>Upload Date:</strong> {new Date(selectedFileData.file.uploadDate).toLocaleDateString()}</p>
+            </div>
+
+            <div className="overflow-auto max-h-[60vh] border border-gray-600 rounded-lg">
+              <table className="min-w-full bg-gray-900">
+                <thead className="sticky top-0 bg-gray-700">
+                  <tr className="text-left text-teal-400">
+                    <th className="px-3 py-2 text-xs">Sample ID</th>
+                    <th className="px-3 py-2 text-xs">Location</th>
+                    <th className="px-3 py-2 text-xs">Date</th>
+                    <th className="px-3 py-2 text-xs">pH</th>
+                    <th className="px-3 py-2 text-xs">EC</th>
+                    <th className="px-3 py-2 text-xs">TDS</th>
+                    <th className="px-3 py-2 text-xs">Pb</th>
+                    <th className="px-3 py-2 text-xs">As</th>
+                    <th className="px-3 py-2 text-xs">Cd</th>
+                    <th className="px-3 py-2 text-xs">Cr</th>
+                    <th className="px-3 py-2 text-xs">Ni</th>
+                    <th className="px-3 py-2 text-xs">Hg</th>
+                    <th className="px-3 py-2 text-xs">Cu</th>
+                    <th className="px-3 py-2 text-xs">Zn</th>
+                    <th className="px-3 py-2 text-xs">Fe</th>
+                    <th className="px-3 py-2 text-xs">Mn</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {selectedFileData.csvData.slice(0, 20).map((sample, index) => (
+                    <tr key={index} className="border-b border-gray-700 hover:bg-gray-700">
+                      <td className="px-3 py-2 text-xs text-white">{sample.SampleID}</td>
+                      <td className="px-3 py-2 text-xs text-gray-300">{sample.LocationName}</td>
+                      <td className="px-3 py-2 text-xs text-gray-300">{sample.DateOfCollection}</td>
+                      <td className="px-3 py-2 text-xs text-gray-300">{sample.pH}</td>
+                      <td className="px-3 py-2 text-xs text-gray-300">{sample.EC}</td>
+                      <td className="px-3 py-2 text-xs text-gray-300">{sample.TDS}</td>
+                      <td className="px-3 py-2 text-xs text-gray-300">{sample.Pb}</td>
+                      <td className="px-3 py-2 text-xs text-gray-300">{sample.As}</td>
+                      <td className="px-3 py-2 text-xs text-gray-300">{sample.Cd}</td>
+                      <td className="px-3 py-2 text-xs text-gray-300">{sample.Cr}</td>
+                      <td className="px-3 py-2 text-xs text-gray-300">{sample.Ni}</td>
+                      <td className="px-3 py-2 text-xs text-gray-300">{sample.Hg}</td>
+                      <td className="px-3 py-2 text-xs text-gray-300">{sample.Cu}</td>
+                      <td className="px-3 py-2 text-xs text-gray-300">{sample.Zn}</td>
+                      <td className="px-3 py-2 text-xs text-gray-300">{sample.Fe}</td>
+                      <td className="px-3 py-2 text-xs text-gray-300">{sample.Mn}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {selectedFileData.csvData.length > 20 && (
+                <div className="p-4 text-center text-gray-400 text-sm">
+                  Showing first 20 samples of {selectedFileData.csvData.length} total samples
+                </div>
+              )}
+            </div>
+
+            <div className="flex justify-end space-x-4 mt-4">
+              <button
+                onClick={() => handleDownloadReport(selectedFileData.file.id)}
+                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors"
+              >
+                Download CSV
+              </button>
+              <button
+                onClick={closeModal}
+                className="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
