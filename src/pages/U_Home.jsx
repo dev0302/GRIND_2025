@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { hmpiData, searchCities, getCityByName, getHmpiLevel, getHmpiColor } from '../data/hmpiData';
-import { searchIndianCities, getIndianCityByName } from '../data/indianCities';
+import { searchIndianCities, getIndianCityByName } from '../data/indianCities.js';
 import GraphicalAnalysis from '../components/GraphicalAnalysis';
 
 function U_Home() {
