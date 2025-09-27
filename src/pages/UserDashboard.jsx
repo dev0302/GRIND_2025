@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar.jsx";
-import WaterData from "../data/WaterQuality.json";
+import WaterData from "../data/WaterQuality.js";
 
 export default function UserDashboard() {
   const [location, setLocation] = useState("");
