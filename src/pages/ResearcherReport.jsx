@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar.jsx";
+import Navbar from "../components/Navbar";
 import { 
   calculateHMPI, 
   getWaterQualityCategory, 
@@ -11,7 +11,7 @@ import {
   STANDARD_LIMITS,
   UNIT_WEIGHTS,
   BIS_QUALITY_CATEGORIES
-} from "../utils/hmpiCalculations.js";
+} from "../utils/hmpiCalculations";
 import {
   LineChart,
   Line,

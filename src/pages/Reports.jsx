@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar.jsx";
+import Navbar from "../components/Navbar";
 
 export default function Report() {
   const [reports, setReports] = useState([]);
