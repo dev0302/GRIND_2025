@@ -2,8 +2,8 @@
 // This can be used for testing and demonstration purposes
 
 import React from 'react';
-import { searchIndianCities, getIndianCityByName } from '../data/indianCities.js';
-import { hmpiData, searchCities } from '../data/hmpiData.js';
+import { searchIndianCities, getIndianCityByName } from '../data/indianCities';
+import { hmpiData, searchCities } from '../data/hmpiData';
 
 // Demo function to test search functionality
 export const testSearchFunctionality = () => {

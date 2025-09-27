@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Papa from "papaparse";
 import sampleHMPI from "../data/sample_hmpi_data.csv?url";
-import { searchIndianCities } from "../data/indianCities.js";
+import { searchIndianCities } from "../data/indianCities";
 
 export default function ResearcherDashboard() {
   const navigate = useNavigate();

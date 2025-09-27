@@ -11,7 +11,7 @@ import {
   STANDARD_LIMITS,
   UNIT_WEIGHTS,
   BIS_QUALITY_CATEGORIES
-} from "../utils/hmpiCalculations.js";
+} from "../utils/hmpiCalculations";
 import {
   LineChart,
   Line,
@@ -27,7 +27,7 @@ import {
   Pie,
   Cell
 } from 'recharts';
-import { generatePDFReport } from '../utils/pdfReportGenerator.js';
+import { generatePDFReport } from '../utils/pdfReportGenerator';
 
 export default function ResearcherReport() {
   const navigate = useNavigate();
