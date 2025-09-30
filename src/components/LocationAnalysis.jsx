@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 function LocationAnalysis({ cityData }) {
   const [selectedSample, setSelectedSample] = useState(0);
   
-  // Paschim Vihar sampling data
+  // Delhi sampling data (multiple points across the city)
   const samplingData = [
     {
       id: 'S001',
       date: '2024-01-15',
-      coordinates: { lat: 28.6139, lng: 77.2090 },
+      coordinates: { lat: 28.6304, lng: 77.2177 }, // Connaught Place
       hmpi: 7.2,
       riskLevel: 'High',
       color: 'red'
@@ -16,7 +16,7 @@ function LocationAnalysis({ cityData }) {
     {
       id: 'S002', 
       date: '2024-04-20',
-      coordinates: { lat: 28.6139, lng: 77.2090 },
+      coordinates: { lat: 28.5850, lng: 77.0680 }, // Dwarka
       hmpi: 6.8,
       riskLevel: 'High',
       color: 'red'
@@ -24,7 +24,7 @@ function LocationAnalysis({ cityData }) {
     {
       id: 'S003',
       date: '2024-07-15', 
-      coordinates: { lat: 28.6139, lng: 77.2090 },
+      coordinates: { lat: 28.7041, lng: 77.1025 }, // Rohini vicinity
       hmpi: 5.1,
       riskLevel: 'Moderate-High',
       color: 'orange'
@@ -32,7 +32,7 @@ function LocationAnalysis({ cityData }) {
     {
       id: 'S004',
       date: '2024-10-10',
-      coordinates: { lat: 28.6139, lng: 77.2090 },
+      coordinates: { lat: 28.5677, lng: 77.2433 }, // Lajpat Nagar
       hmpi: 3.8,
       riskLevel: 'Moderate',
       color: 'yellow'
@@ -40,7 +40,7 @@ function LocationAnalysis({ cityData }) {
     {
       id: 'S005',
       date: '2025-01-20',
-      coordinates: { lat: 28.6139, lng: 77.2090 },
+      coordinates: { lat: 28.6510, lng: 77.1900 }, // Karol Bagh area
       hmpi: 2.9,
       riskLevel: 'Low',
       color: 'green'
@@ -106,7 +106,7 @@ function LocationAnalysis({ cityData }) {
 
               {/* Map Labels */}
               <div className="absolute top-4 left-4 text-white text-sm">
-                <div className="font-semibold">Paschim Vihar</div>
+                <div className="font-semibold">Delhi Sampling Area</div>
                 <div className="text-gray-300 text-xs">Delhi, India</div>
               </div>
               

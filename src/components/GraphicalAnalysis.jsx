@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import LocationAnalysis from './LocationAnalysis';
 import UserFriendlySummary from './UserFriendlySummary';
 
-// Paschim Vihar detailed data from CSV
-const paschimViharData = [
+// Sample Delhi data (generic, not area-specific)
+const sampleDelhiData = [
   {
     sampleId: "S001",
     date: "2024-01-15",
@@ -127,7 +127,7 @@ function GraphicalAnalysis({ cityData }) {
 
   // Calculate trend data
   const calculateTrend = (parameter) => {
-    const values = paschimViharData.map(sample => sample[parameter]);
+    const values = sampleDelhiData.map(sample => sample[parameter]);
     const firstValue = values[0];
     const lastValue = values[values.length - 1];
     const change = lastValue - firstValue;
@@ -156,7 +156,7 @@ function GraphicalAnalysis({ cityData }) {
     return { level: 'Very High', color: 'purple', description: 'Extremely dangerous' };
   };
 
-  const currentHmpi = paschimViharData[paschimViharData.length - 1].hmpi;
+  const currentHmpi = sampleDelhiData[sampleDelhiData.length - 1].hmpi;
   const hmpiLevel = getHmpiLevel(currentHmpi);
 
   return (
@@ -205,7 +205,7 @@ function GraphicalAnalysis({ cityData }) {
         <div className="bg-white/5 rounded-xl p-6">
           <h4 className="text-lg font-semibold text-white mb-4">HMPI Over Time</h4>
           <div className="flex items-end justify-between h-32 space-x-2">
-            {paschimViharData.map((sample, index) => {
+            {sampleDelhiData.map((sample, index) => {
               const height = (sample.hmpi / 8) * 100; // Scale to max 8
               return (
                 <div key={sample.sampleId} className="flex flex-col items-center flex-1">
@@ -339,13 +339,13 @@ function GraphicalAnalysis({ cityData }) {
           <div className="bg-white/5 rounded-xl p-6 text-center">
             <h4 className="text-lg font-semibold text-white mb-2">pH Level</h4>
             <div className="text-3xl font-bold text-blue-400 mb-2">
-              {paschimViharData[paschimViharData.length - 1].pH}
+              {sampleDelhiData[sampleDelhiData.length - 1].pH}
             </div>
             <div className="text-sm text-gray-300">Optimal Range: 6.5 - 8.5</div>
             <div className="mt-2 w-full bg-gray-700 rounded-full h-2">
               <div 
                 className="bg-blue-500 h-2 rounded-full"
-                style={{ width: `${((paschimViharData[paschimViharData.length - 1].pH - 6) / 2.5) * 100}%` }}
+                style={{ width: `${((sampleDelhiData[sampleDelhiData.length - 1].pH - 6) / 2.5) * 100}%` }}
               ></div>
             </div>
           </div>
@@ -354,13 +354,13 @@ function GraphicalAnalysis({ cityData }) {
           <div className="bg-white/5 rounded-xl p-6 text-center">
             <h4 className="text-lg font-semibold text-white mb-2">TDS (mg/L)</h4>
             <div className="text-3xl font-bold text-cyan-400 mb-2">
-              {paschimViharData[paschimViharData.length - 1].TDS}
+              {sampleDelhiData[sampleDelhiData.length - 1].TDS}
             </div>
             <div className="text-sm text-gray-300">Acceptable: &lt; 500 mg/L</div>
             <div className="mt-2 w-full bg-gray-700 rounded-full h-2">
               <div 
                 className="bg-cyan-500 h-2 rounded-full"
-                style={{ width: `${Math.min((paschimViharData[paschimViharData.length - 1].TDS / 1000) * 100, 100)}%` }}
+                style={{ width: `${Math.min((sampleDelhiData[sampleDelhiData.length - 1].TDS / 1000) * 100, 100)}%` }}
               ></div>
             </div>
           </div>
@@ -369,13 +369,13 @@ function GraphicalAnalysis({ cityData }) {
           <div className="bg-white/5 rounded-xl p-6 text-center">
             <h4 className="text-lg font-semibold text-white mb-2">Temperature (°C)</h4>
             <div className="text-3xl font-bold text-yellow-400 mb-2">
-              {paschimViharData[paschimViharData.length - 1].temperature}°C
+              {sampleDelhiData[sampleDelhiData.length - 1].temperature}°C
             </div>
             <div className="text-sm text-gray-300">Normal Range: 25-35°C</div>
             <div className="mt-2 w-full bg-gray-700 rounded-full h-2">
               <div 
                 className="bg-yellow-500 h-2 rounded-full"
-                style={{ width: `${((paschimViharData[paschimViharData.length - 1].temperature - 20) / 20) * 100}%` }}
+                style={{ width: `${((sampleDelhiData[sampleDelhiData.length - 1].temperature - 20) / 20) * 100}%` }}
               ></div>
             </div>
           </div>
@@ -391,7 +391,7 @@ function GraphicalAnalysis({ cityData }) {
           <div className="bg-white/5 rounded-xl p-6">
             <h4 className="text-lg font-semibold text-white mb-4">Sampling Location</h4>
             <div className="bg-gray-800 rounded-lg p-4 text-center">
-              <div className="text-blue-400 text-sm mb-2">📍 Paschim Vihar, Delhi</div>
+              <div className="text-blue-400 text-sm mb-2">📍 Delhi</div>
               <div className="text-gray-300 text-xs mb-4">
                 Coordinates: 28.6139°N, 77.2090°E
               </div>
@@ -410,7 +410,7 @@ function GraphicalAnalysis({ cityData }) {
             <div className="space-y-3">
               <div className="flex justify-between">
                 <span className="text-gray-300">Total Samples</span>
-                <span className="text-white font-semibold">{paschimViharData.length}</span>
+                <span className="text-white font-semibold">{sampleDelhiData.length}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-300">Sampling Period</span>

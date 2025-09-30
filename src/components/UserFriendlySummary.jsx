@@ -1,7 +1,7 @@
 import React from 'react';
 
 function UserFriendlySummary({ cityData }) {
-  // Paschim Vihar improvement data
+  // Generic improvement data (example)
   const improvementData = {
     overallImprovement: 59.7, // Percentage improvement from first to last sample
     currentHmpi: 2.9,
@@ -33,7 +33,7 @@ function UserFriendlySummary({ cityData }) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <h2 className="text-3xl font-bold text-white mb-2">Success Story: Paschim Vihar</h2>
+          <h2 className="text-3xl font-bold text-white mb-2">Success Story</h2>
           <p className="text-xl text-gray-300 mb-6">
             From High Risk to Low Risk - A remarkable water quality improvement journey
           </p>
