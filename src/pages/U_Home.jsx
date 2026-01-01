@@ -134,7 +134,7 @@ function U_Home() {
       (error) => {
         console.error('Geolocation error:', error);
         
-        // Fallback to Delhi when location detection fails
+        // Silent fallback to Delhi Paschim Vihar when location detection fails
         console.log('Location detection failed, using fallback location: Delhi');
         const fallbackCity = hmpiData.Delhi;
         
@@ -411,8 +411,8 @@ function U_Home() {
           </div>
         )}
 
-        {/* Graphical Analysis Section - Show for Delhi */}
-        {selectedCity && selectedCity.city === 'Delhi' && !isLoading && (
+        {/* Graphical Analysis Section - Show for Paschim Vihar */}
+        {selectedCity && selectedCity.city === 'Delhi' && selectedCity.district === 'Paschim Vihar' && !isLoading && (
           <div className="max-w-7xl mx-auto mt-8">
             <GraphicalAnalysis cityData={selectedCity} />
           </div>

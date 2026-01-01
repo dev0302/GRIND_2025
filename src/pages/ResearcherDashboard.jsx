@@ -144,7 +144,7 @@ export default function ResearcherDashboard() {
     ];
     
     if (!supportedLocations.includes(normalized)) {
-      showToast(`Currently supported demo locations include: Delhi areas such as Punjabi Bagh, Rajouri Garden, Dwarka, Rohini, and more.`);
+      showToast(`Currently supported demo locations include: Paschim Vihar, Punjabi Bagh, Rajouri Garden, Dwarka, Rohini, and other Delhi areas.`);
       return;
     }
 
@@ -188,7 +188,7 @@ export default function ResearcherDashboard() {
         }));
 
         localStorage.setItem("researchData", JSON.stringify(parsedData));
-        localStorage.setItem("uploadedFileName", "sample_hmpi_data.csv (Delhi)");
+        localStorage.setItem("uploadedFileName", "sample_hmpi_data.csv (Paschim Vihar)");
         setIsLoading(false);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         navigate("/researcherReport");
@@ -435,7 +435,7 @@ export default function ResearcherDashboard() {
               </div>
             </div>
             <p className="text-gray-300 mb-6">
-              Try entering any Delhi area like <span className="text-emerald-400 font-semibold">Punjabi Bagh</span>, <span className="text-emerald-400 font-semibold">Dwarka</span>, or <span className="text-emerald-400 font-semibold">Rohini</span> to load sample HMPI data and see the full analysis without uploading a file.
+              Try entering any Delhi area like <span className="text-emerald-400 font-semibold">Paschim Vihar</span>, <span className="text-emerald-400 font-semibold">Punjabi Bagh</span>, <span className="text-emerald-400 font-semibold">Dwarka</span>, or <span className="text-emerald-400 font-semibold">Rohini</span> to load sample HMPI data and see the full analysis without uploading a file.
             </p>
             <div className="relative">
               <div className="flex flex-col sm:flex-row gap-3">
@@ -446,7 +446,7 @@ export default function ResearcherDashboard() {
                     onChange={handleSearchChange}
                     onFocus={() => searchQuery.length >= 2 && setShowSuggestions(true)}
                     onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-                    placeholder="Enter location (e.g., Rohini)"
+                    placeholder="Enter location (e.g., Paschim Vihar)"
                     className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                   

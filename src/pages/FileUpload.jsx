@@ -177,11 +177,11 @@ export default function FileUpload() {
                     onClick={() => {
                       // Create a comprehensive sample CSV content
                       const csvContent = `SampleID,LabCode,LabName,AccreditationID,CollectorName,DateOfCollection,TimeOfCollection,Depth,SourceType,LocationName,Latitude,Longitude,Photo,pH,EC,TDS,Temperature,Turbidity,Pb,As,Cd,Cr,Ni,Hg,Cu,Zn,Fe,Mn
-S001,LAB001,Central Water Research Lab,NABL-12345,Dr. Dev Malik,2024-01-15,10:30,5m,Borewell,Delhi,28.6139,77.2090,sample1.jpg,7.2,450,320,25.5,2.1,0.045,0.025,0.008,0.12,0.015,0.002,0.08,0.12,0.15,0.08
-S002,LAB001,Central Water Research Lab,NABL-12345,Dr. Dev Malik,2024-01-15,11:00,8m,Borewell,Delhi,28.6139,77.2090,sample2.jpg,7.1,480,340,26.0,1.8,0.042,0.028,0.009,0.115,0.018,0.0018,0.085,0.125,0.16,0.085
-S003,LAB001,Central Water Research Lab,NABL-12345,Dr. Dev Malik,2024-01-15,11:30,6m,Borewell,Delhi,28.6139,77.2090,sample3.jpg,7.3,465,330,25.8,2.3,0.048,0.022,0.007,0.125,0.012,0.0022,0.075,0.115,0.14,0.075
-S004,LAB001,Central Water Research Lab,NABL-12345,Dr. Dev Malik,2024-01-16,09:15,7m,Borewell,Delhi,28.6139,77.2090,sample4.jpg,7.0,420,300,24.8,1.9,0.038,0.020,0.006,0.110,0.010,0.0015,0.070,0.110,0.135,0.070
-S005,LAB001,Central Water Research Lab,NABL-12345,Dr. Dev Malik,2024-01-16,10:45,9m,Borewell,Delhi,28.6139,77.2090,sample5.jpg,7.4,490,350,26.2,2.0,0.050,0.030,0.010,0.130,0.020,0.0025,0.090,0.130,0.170,0.090`;
+S001,LAB001,Central Water Research Lab,NABL-12345,Dr. Dev Malik,2024-01-15,10:30,5m,Borewell,Paschim Vihar,28.7041,77.1025,sample1.jpg,7.2,450,320,25.5,2.1,0.045,0.025,0.008,0.12,0.015,0.002,0.08,0.12,0.15,0.08
+S002,LAB001,Central Water Research Lab,NABL-12345,Dr. Dev Malik,2024-01-15,11:00,8m,Borewell,Paschim Vihar,28.7045,77.1030,sample2.jpg,7.1,480,340,26.0,1.8,0.042,0.028,0.009,0.115,0.018,0.0018,0.085,0.125,0.16,0.085
+S003,LAB001,Central Water Research Lab,NABL-12345,Dr. Dev Malik,2024-01-15,11:30,6m,Borewell,Paschim Vihar,28.7038,77.1028,sample3.jpg,7.3,465,330,25.8,2.3,0.048,0.022,0.007,0.125,0.012,0.0022,0.075,0.115,0.14,0.075
+S004,LAB001,Central Water Research Lab,NABL-12345,Dr. Dev Malik,2024-01-16,09:15,7m,Borewell,Punjabi Bagh,28.6500,77.1200,sample4.jpg,7.0,420,300,24.8,1.9,0.038,0.020,0.006,0.110,0.010,0.0015,0.070,0.110,0.135,0.070
+S005,LAB001,Central Water Research Lab,NABL-12345,Dr. Dev Malik,2024-01-16,10:45,9m,Borewell,Dwarka,28.5920,77.0460,sample5.jpg,7.4,490,350,26.2,2.0,0.050,0.030,0.010,0.130,0.020,0.0025,0.090,0.130,0.170,0.090`;
                       
                       const blob = new Blob([csvContent], { type: 'text/csv' });
                       const url = window.URL.createObjectURL(blob);

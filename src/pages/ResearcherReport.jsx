@@ -605,7 +605,7 @@ export default function ResearcherReport() {
 
             {activeTab === "locations" && (
               <div>
-                <h2 className="text-2xl font-semibold text-indigo-400 mb-6">Location Analysis - Delhi</h2>
+                <h2 className="text-2xl font-semibold text-indigo-400 mb-6">Location Analysis - Paschim Vihar</h2>
                 {Object.keys(locationAggregates).length === 0 ? (
                   <p className="text-gray-300 text-center py-8">No location data available</p>
                 ) : (
@@ -733,7 +733,7 @@ export default function ResearcherReport() {
 
             {activeTab === "charts" && (
               <div>
-                <h2 className="text-2xl font-semibold text-indigo-400 mb-6">Graphical Analysis - Delhi</h2>
+                <h2 className="text-2xl font-semibold text-indigo-400 mb-6">Graphical Analysis - Paschim Vihar</h2>
                 
                 {/* HMPI Trend Chart */}
                 <div className="bg-gray-800 p-6 rounded-lg mb-6">

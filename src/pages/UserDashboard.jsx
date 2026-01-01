@@ -1,49 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
-import WaterData from "../Data/WaterQuality.js";
-import { useGeolocation } from "../utils/useGeolocation";
+import WaterData from "../data/waterQuality.js";
 
 export default function UserDashboard() {
   const [location, setLocation] = useState("");
   const [result, setResult] = useState(null);
-  const { coords, status, request, error } = useGeolocation({ enableHighAccuracy: true, timeout: 12000, maximumAge: 300000 });
-
-  // Compute nearest city from WaterData based on user coords
-  const nearestCity = useMemo(() => {
-    if (!coords) return null;
-    let best = null;
-    let bestDist = Infinity;
-    for (const city of WaterData) {
-      const dLat = city.lat - coords.lat;
-      const dLng = city.lng - coords.lng;
-      const dist = Math.sqrt(dLat * dLat + dLng * dLng);
-      if (dist < bestDist) {
-        bestDist = dist;
-        best = city;
-      }
-    }
-    return best;
-  }, [coords]);
-
-  // Request geolocation on mount
-  useEffect(() => {
-    request();
-  }, [request]);
-
-  // When permission resolves, set location/result
-  useEffect(() => {
-    if (status === 'granted' && nearestCity) {
-      setLocation(nearestCity.location);
-      setResult(nearestCity);
-    } else if (status === 'denied' || status === 'unsupported' || status === 'error') {
-      // Safe fallback: use Delhi if available
-      const delhi = WaterData.find(item => item.location.toLowerCase().includes('delhi'));
-      if (delhi) {
-        setLocation(delhi.location);
-        setResult(delhi);
-      }
-    }
-  }, [status, nearestCity]);
 
   const handleCheckWater = (e) => {
     e.preventDefault();
@@ -78,27 +39,6 @@ export default function UserDashboard() {
             onChange={(e) => setLocation(e.target.value)}
             className="p-3 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-teal-400"
           />
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={request}
-              className="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg text-sm"
-            >
-              Use My Location
-            </button>
-            {status === 'requesting' && (
-              <span className="text-gray-300 text-sm">Requesting location…</span>
-            )}
-            {status === 'denied' && (
-              <span className="text-yellow-400 text-sm">Permission denied. Using Delhi.</span>
-            )}
-            {status === 'unsupported' && (
-              <span className="text-yellow-400 text-sm">Geolocation unsupported. Using Delhi.</span>
-            )}
-            {status === 'error' && (
-              <span className="text-yellow-400 text-sm">Couldn’t get location. Using Delhi.</span>
-            )}
-          </div>
           <button
             type="submit"
             className="bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-400 hover:to-blue-400 px-6 py-3 rounded-lg font-semibold shadow-lg transform transition hover:scale-105"

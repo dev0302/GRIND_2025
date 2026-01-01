@@ -97,7 +97,7 @@ export const generatePDFReport = async (researchData, fileName, userData) => {
     ['Lab/Researcher Name:', userData?.name || 'EnviroLab Pvt Ltd'],
     ['Lab Accreditation/ID:', userData?.accreditationId || 'NABL-001'],
     ['Report Date:', new Date().toLocaleDateString()],
-    ['Region/Location:', 'Delhi'],
+    ['Region/Location:', 'Paschim Vihar, Delhi'],
     ['Total Samples:', researchData.length.toString()]
   ];
 

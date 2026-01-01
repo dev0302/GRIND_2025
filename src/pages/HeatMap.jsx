@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.heat';
 import { heatmapData } from '../data/heatmapData';
 import Navbar from '../components/Navbar';
-import { useGeolocation } from '../utils/useGeolocation';
 
 // Fix for default markers in react-leaflet
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
@@ -129,18 +128,6 @@ export default function HeatMap() {
   const [showHeatMap, setShowHeatMap] = useState(true);
   const [showMarkers, setShowMarkers] = useState(true);
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const { coords, status, request } = useGeolocation({ enableHighAccuracy: true, timeout: 12000, maximumAge: 300000 });
-
-  // Request location on mount
-  useEffect(() => {
-    request();
-  }, [request]);
-
-  // Determine map center: use user coords if available, else safe default (New Delhi)
-  const mapCenter = useMemo(() => {
-    if (status === 'granted' && coords) return [coords.lat, coords.lng];
-    return [28.6139, 77.2090];
-  }, [status, coords]);
 
   // Calculate statistics
   const totalSamples = heatmapData.reduce((sum, loc) => sum + loc.samples, 0);
@@ -270,7 +257,7 @@ export default function HeatMap() {
               
               <div className="h-96 rounded-lg overflow-hidden border border-gray-600">
                 <MapContainer
-                  center={mapCenter}
+                  center={[28.6139, 77.2090]} // Paschim Vihar center
                   zoom={13}
                   style={{ height: '100%', width: '100%' }}
                   className="z-0"
