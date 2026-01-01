@@ -19,9 +19,6 @@ to solving real problems faced by researchers and laboratories:
 
 ---
 
-## 📊 Researcher Dashboard (UI Prototype)
-
-![Researcher Dashboard](assets/images/tech_flow_ppt_slide.png)
 
 
 ## 🎯 Problem Statement (SIH Context)
@@ -39,6 +36,14 @@ This prototype demonstrates how an AI-driven system can:
 - support future decision-making
 
 ---
+
+## 📊 TECHNICAL APPROACH (UI Prototype)
+
+![TECHNICAL APPROACH](assets/images/tech_flow_ppt_slide.png)
+
+## 📊 TECHNICAL APPROACH (INITIAL APPROACH)
+
+![TECHNICAL APPROACH](assets/images/techflow_shruti_image.jpeg)
 
 ## 🧠 Core Idea: AI-Centric Architecture (Conceptual)
 
