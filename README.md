@@ -19,6 +19,11 @@ to solving real problems faced by researchers and laboratories:
 
 ---
 
+## 📊 Researcher Dashboard (UI Prototype)
+
+![Researcher Dashboard](assets/images/tech_flow_ppt_slide.png)
+
+
 ## 🎯 Problem Statement (SIH Context)
 
 Researchers currently:
