@@ -189,3 +189,16 @@ Goal:
 > errors, and unlock the true value of research data.*
 
 ⭐ Built for **Smart India Hackathon (SIH)**  
+
+
+## 📄 Project Report
+
+- 📘 **Detailed Project Documentation**  
+  👉 [View Project Report](https://docs.google.com/document/d/1-cQ1FuuxI6u5HTCliN1rtstws1-WP89AdUBkKXmABq4/edit?usp=sharing)
+
+
+## 🎥 Demo Video BY TEAM MEMBER - KANISHKA
+
+▶️ **Project Walkthrough & UI Demonstration**  
+👉 [Watch on YouTube](https://youtu.be/v_2_HNxC8gE?si=E_r0Zs5V_VbUIF97)
+
